@@ -88,7 +88,7 @@ async def my_orders(user: dict = Depends(verify_token), db = Depends(get_db)):
     return {"orders": user_orders, "total_cost": total_cost}
 
 @app.get('/admin/orders')
-async def get_all_orders(_: dict = Depends(verify_admin), db = Depends(get_db)):
+async def get_all_orders(limit: int = 10, offset: int = 0, _: dict = Depends(verify_admin), db = Depends(get_db)):
     cursor, conn = db
     row_orders = cursor.execute('SELECT * FROM orders').fetchall()
     user_orders = [
